@@ -4,14 +4,14 @@
     "description": "Bot de TTS para Twitch con integración de ElevenLabs",
     "main": "app.js",
     "scripts": {
-      "start": "node app.js"
+        "start": "node app.js"
     },
     "dependencies": {
-      "body-parser": "^1.20.0",
-      "express": "^4.18.2",
-      "node-fetch": "^2.6.7",
-      "socket.io": "^4.5.1",
-      "tmi.js": "^1.8.5"
+        "body-parser": "^1.20.0",
+        "dotenv": "^16.4.7",
+        "express": "^4.18.2",
+        "node-fetch": "^2.6.7",
+        "socket.io": "^4.5.1",
+        "tmi.js": "^1.8.5"
     }
-  }
-  
+}

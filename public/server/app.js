@@ -1,4 +1,5 @@
-// server/app.js
+require('dotenv').config();
+
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
@@ -21,7 +22,15 @@ const CLIENT_ID = process.env.CLIENT_ID;
 // Mapeo de nombres de streamer a ID de voz en ElevenLabs
 const voiceMapping = {
   "chabon": "F0uPYyt0vZfuW7bNZVe4",
-  // agregar más mapeos según se necesite
+  "florchus": "",
+  "baulo": "",
+  "melian": "",
+  "nanoide": "",
+  "mortedor": "",
+  "rageylo": "",
+  "aldimirco": "",
+  "harryalex": "",
+  "joaconeco": ""
 };
 
 // Mapeo para guardar el ID del reward "TTS" por canal (clave: nombre del canal en minúsculas)
@@ -72,7 +81,7 @@ async function crearRewardTTS(broadcasterId, streamerAccessToken) {
   const url = `https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=${broadcasterId}`;
   const rewardPayload = {
     title: "TTS",
-    prompt: "Para enviar un mensaje con voz personalizada tenes que respetar este formato: '(nombreStreamer: mensaje)'. Por ejemplo: 'baulo: hola123'",          // Puedes ajustar el prompt según necesites
+    prompt: "Para enviar un mensaje con voz personalizada tenes que respetar este formato: '(nombreStreamer: mensaje)'. Por ejemplo: 'baulo: hola123'. DISPONIBLES: 'florchus', 'chabon', 'baulo', 'melian', 'nanoide', 'mortedor', 'rageylo', 'aldimirco', 'harryalex', 'joaconeco'",
     cost: 1000,               // Costo en channel points
     is_enabled: true,
     is_user_input_required: true
@@ -132,7 +141,7 @@ app.post('/activate-bot', async (req, res) => {
       .then(() => {
         console.log(`Bot unido al canal: ${channelLower}`);
         // Generar link personalizado para OBS
-        const obsLink = `${process.env.DOMAIN || 'https://ttstreamersarg.web.app'}/obs.html?channel=${channelLower}`;
+        const obsLink = `${process.env.DOMAIN || 'https://ttstreamersarg.onrender.com'}/obs.html?channel=${channelLower}`;
         res.json({ success: true, obsLink });
       })
       .catch(err => {

@@ -27,6 +27,7 @@ if (loginWithTwitchButton) {
         const clientId = '9ul5w7my71i8cyji7q95lgl7grxagc';
         // Nota: Cambia el redirectUri a producción cuando corresponda.
         const redirectUri = 'https://ttstreamersarg.onrender.com/';
+        //const redirectUri = 'http://localhost:8001/';
         // Solicitar scopes para leer y gestionar redenciones
         const scope = 'user:read:email channel:read:redemptions channel:manage:redemptions';
         const responseType = 'token';
@@ -70,6 +71,8 @@ function handleTwitchAuth() {
             })
             .catch(error => console.error('Error al obtener usuario de Twitch:', error));
         }
+        // Limpiar la URL para quitar el hash con el token
+        window.history.replaceState(null, null, window.location.pathname + window.location.search);
     } else {
         const storedUsername = localStorage.getItem("username");
         const storedAvatar = localStorage.getItem("userAvatar");
