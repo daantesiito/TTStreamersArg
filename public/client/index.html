@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agregar Bot TTS</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="container">
+    <!-- Botón para login con Twitch -->
+    <button id="loginWithTwitchButton">LOGIN CON TWITCH</button>
+    
+    <!-- Información del usuario (se muestra al autenticarse) -->
+    <div id="userInfo" class="hidden">
+      <img id="userAvatar" src="" alt="Avatar del usuario"/>
+      <span id="userName"></span>
+    </div>
+    
+    <!-- Sección para agregar el bot -->
+    <div id="bot-section" class="hidden">
+      <h2>Agregar el Bot a tu Canal</h2>
+      <button id="addBotButton">Agregar Bot</button>
+    </div>
+
+    <!-- Enlace generado para OBS -->
+    <div id="generated-link" class="hidden">
+      <p>Este es tu enlace para OBS:</p>
+      <input type="text" id="ttsLink" readonly />
+      <button onclick="copyToClipboard()">Copiar Link</button>
+    </div>
+  </div>
+
+  <!-- Scripts de Firebase y Configuración -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  <script src="config.js"></script>
+</body>
+</html>

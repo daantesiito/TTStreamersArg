@@ -1,0 +1,17 @@
+{
+    "name": "twitch-tts-bot",
+    "version": "1.0.0",
+    "description": "Bot de TTS para Twitch con integración de ElevenLabs",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "dependencies": {
+      "body-parser": "^1.20.0",
+      "express": "^4.18.2",
+      "node-fetch": "^2.6.7",
+      "socket.io": "^4.5.1",
+      "tmi.js": "^1.8.5"
+    }
+  }
+  
