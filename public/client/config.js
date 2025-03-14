@@ -26,7 +26,7 @@ if (loginWithTwitchButton) {
     loginWithTwitchButton.addEventListener("click", () => {
         const clientId = '9ul5w7my71i8cyji7q95lgl7grxagc';
         // Nota: Cambia el redirectUri a producción cuando corresponda.
-        const redirectUri = 'http://localhost:8000/';
+        const redirectUri = 'https://ttstreamersarg.onrender.com/';
         // Solicitar scopes para leer y gestionar redenciones
         const scope = 'user:read:email channel:read:redemptions channel:manage:redemptions';
         const responseType = 'token';
