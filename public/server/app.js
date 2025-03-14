@@ -6,7 +6,7 @@ const tmi = require('tmi.js');
 const fetch = require('node-fetch'); // Asegurate de tener esta dependencia
 const bodyParser = require('body-parser');
 const path = require('path');
-s
+
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
