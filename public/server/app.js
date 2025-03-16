@@ -33,6 +33,89 @@ const voiceMapping = {
   "joaconeco": "FE0tCCs2lcjaI5oFcHwf"
 };
 
+// Mapeo de voces a sus ajustes
+const voiceSettingsMapping = {
+  "chabon": {
+    stability: 0.9,
+    similarity_boost: 1.0,
+    style: 0.60,
+    speed: 0.97,
+    use_speaker_boost: true
+  },
+  "florchus": {
+    stability: 0.6,
+    similarity_boost: 0.93,
+    style: 0.63,
+    speed: 0.95,
+    use_speaker_boost: true
+  },
+  "baulo": {
+    stability: 0.6,
+    similarity_boost: 0.80,
+    style: 0.43,
+    speed: 1.01,
+    use_speaker_boost: true
+  },
+  "melian": {
+    stability: 0.81,
+    similarity_boost: 0.94,
+    style: 0.46,
+    speed: 0.94,
+    use_speaker_boost: true
+  },
+  "nanoide": {
+    stability: 0.82,
+    similarity_boost: 1.0,
+    style: 0.54,
+    speed: 1.02,
+    use_speaker_boost: true
+  },
+  "mortedor": {
+    stability: 0.81,
+    similarity_boost: 0.93,
+    style: 0.5,
+    speed: 1.04,
+    use_speaker_boost: true
+  },
+  "rageylo": {
+    stability: 0.5,
+    similarity_boost: 0.75,
+    style: 0.3,
+    speed: 1.0,
+    use_speaker_boost: true
+  },
+  "aldimirco": {
+    stability: 0.81,
+    similarity_boost: 0.94,
+    style: 0.42,
+    speed: 1.03,
+    use_speaker_boost: true
+  },
+  "harryalex": {
+    stability: 0.75,
+    similarity_boost: 0.69,
+    style: 0.49,
+    speed: 1.0,
+    use_speaker_boost: true
+  },
+  "joaconeco": {
+    stability: 0.68,
+    similarity_boost: 0.82,
+    style: 0.41,
+    speed: 1.02,
+    use_speaker_boost: true
+  }
+};
+
+// Si no se define una voz específica, usar valores por defecto
+const defaultSettings = {
+  stability: 0.5,
+  similarity_boost: 0.75,
+  style: 0.3,
+  speed: 1.0,
+  use_speaker_boost: true
+};
+
 // Mapeo para guardar el ID del reward "TTS" por canal (clave: nombre del canal en minúsculas)
 const rewardMapping = {};
 
@@ -192,21 +275,30 @@ client.on('message', async (channel, tags, message, self) => {
     }
 
     try {
-      // Seleccionar el voiceId: se busca en el mapping usando el nombre recibido; si no existe, se usa uno default
+      // Seleccionar el voiceId según el streamer
       const voiceId = voiceMapping[streamerName] || voiceMapping["chabon"];
 
-      // Llamar a la API de ElevenLabs con solo el mensaje (sin el nombre)
+      // Buscar ajustes de la voz (o usar default)
+      const voiceSettings = voiceSettingsMapping[streamerName] || defaultSettings;
+
       const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
         method: 'POST',
         headers: {
-          'xi-api-key': ELEVENLABS_API_KEY,
+          'xi-api-key': process.env.ELEVENLABS_API_KEY,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           text: ttsMessage,
-          voice_settings: { stability: 0.5, similarity_boost: 0.75 }
+          model_id: "eleven_multilingual_v2",
+          voice_settings: {
+            stability: voiceSettings.stability,
+            similarity_boost: voiceSettings.similarity_boost,
+            style: voiceSettings.style,
+            speed: voiceSettings.speed,
+            use_speaker_boost: voiceSettings.use_speaker_boost
+          }
         })
-      });
+      });  
 
       if (!response.ok) {
         console.error("Error en la API de ElevenLabs:", response.statusText);

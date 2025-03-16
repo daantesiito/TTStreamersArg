@@ -25,7 +25,6 @@ const ttsLinkInput = document.getElementById("ttsLink");
 if (loginWithTwitchButton) {
     loginWithTwitchButton.addEventListener("click", () => {
         const clientId = '9ul5w7my71i8cyji7q95lgl7grxagc';
-        // Nota: Cambia el redirectUri a producción cuando corresponda.
         const redirectUri = 'https://ttstreamersarg.onrender.com/';
         //const redirectUri = 'http://localhost:8001/';
         // Solicitar scopes para leer y gestionar redenciones
