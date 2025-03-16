@@ -22,15 +22,15 @@ const CLIENT_ID = process.env.CLIENT_ID;
 // Mapeo de nombres de streamer a ID de voz en ElevenLabs
 const voiceMapping = {
   "chabon": "F0uPYyt0vZfuW7bNZVe4",
-  "florchus": "",
-  "baulo": "",
-  "melian": "",
-  "nanoide": "",
-  "mortedor": "",
+  "florchus": "KmRjm2N8YGCdT53uFLNR",
+  "baulo": "T9PR8sIONLHl3sVzzs02",
+  "melian": "qth8SugvxIOLJ73ZygrE",
+  "nanoide": "YEmZfvibUmrQ9Q5qZd5J",
+  "mortedor": "LY7WgqA3k94pCgjw0Qxv",
   "rageylo": "",
-  "aldimirco": "",
-  "harryalex": "",
-  "joaconeco": ""
+  "aldimirco": "9ZV0h8ZjupZesKzHUjga",
+  "harryalex": "V3qIQaqjgoMuwaOU93Mv",
+  "joaconeco": "FE0tCCs2lcjaI5oFcHwf"
 };
 
 // Mapeo para guardar el ID del reward "TTS" por canal (clave: nombre del canal en minúsculas)
