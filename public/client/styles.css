@@ -8,39 +8,47 @@
     --col-shadow: rgba(0, 0, 0, 0.25);
 }
 
-/* Estilos para OBS TTS player */
+/* Estilos generales */
 body, html {
     margin: 0;
     padding: 0;
     overflow: hidden;
     width: 100%;
     height: 100%;
-    background-color: #111;
+    background-color: var(--col-bg);
     font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #container {
-    width: 100%;
-    height: 100%;
-    position: relative;
+    width: 90%;
+    max-width: 800px;
+    height: auto;
+    background: var(--col-bg-light);
     padding: 20px;
-    box-sizing: border-box;
+    box-shadow: 0px 4px 10px var(--col-shadow);
+    border-radius: 10px;
+    text-align: center;
 }
 
 #message-display {
     font-family: Arial, sans-serif;
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px 15px;
-    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
     max-width: 80%;
     text-align: center;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease-in-out;
     position: absolute;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #message-display.visible {
@@ -49,55 +57,62 @@ body, html {
 
 .username {
     font-weight: bold;
-    color: #9147ff;
+    color: var(--col-primary);
     margin-right: 5px;
 }
 
 /* Botón de login con Twitch */
 #loginWithTwitchButton {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #6441a5;
-    color: #fff;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: var(--col-primary);
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
+    transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
 #loginWithTwitchButton:hover {
-    background-color: #9147ff;
+    background: var(--col-primary-light);
+    transform: scale(1.05);
 }
 
 /* Información del usuario */
 #userInfo {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 #userInfo img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     margin-bottom: 10px;
+    border: 2px solid var(--col-primary);
 }
 
 #userInfo span {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    color: #fff;
+    color: white;
 }
 
 /* Estilos para el enlace generado */
 #generated-link {
     margin-top: 30px;
     text-align: center;
+    font-size: 16px;
 }
 
 #ttsLink {
@@ -105,6 +120,10 @@ body, html {
     padding: 10px;
     font-size: 16px;
     text-align: center;
+    border: 2px solid var(--col-primary);
+    border-radius: 5px;
+    background: var(--col-bg-light);
+    color: black;
 }
   
 .hidden {

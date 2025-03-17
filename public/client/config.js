@@ -85,7 +85,7 @@ function mostrarUsuario(name, avatarUrl) {
     loginWithTwitchButton.style.display = "none";
     userInfo.classList.remove("hidden");
     userAvatar.src = avatarUrl;
-    userName.textContent = `Bienvenido, ${name}`;
+    userName.textContent = `${name}`;
     botSection.classList.remove("hidden");
 }
 
