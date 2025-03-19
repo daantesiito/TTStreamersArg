@@ -164,11 +164,14 @@ async function crearRewardTTS(broadcasterId, streamerAccessToken) {
   const url = `https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=${broadcasterId}`;
   const rewardPayload = {
     title: "TTS",
-    prompt: "Para enviar un mensaje con voz personalizada tenes que respetar este formato: '(nombreStreamer: mensaje)'. Por ejemplo: 'baulo: hola123'. DISPONIBLES: 'florchus', 'chabon', 'baulo', 'melian', 'nanoide', 'mortedor', 'rageylo', 'aldimirco', 'harryalex', 'joaconeco'",
+    prompt: "Para enviar un mensaje con voz personalizada tenés que respetar este formato: '(nombreStreamer: mensaje)'. Por ejemplo: 'baulo: hola123'. DISPONIBLES: 'florchus', 'chabon', 'baulo', 'melian', 'nanoide', 'mortedor', 'aldimirco', 'harryalex', 'joaconeco'",
     cost: 1000,               // Costo en channel points
     is_enabled: true,
-    is_user_input_required: true
-    // Puedes agregar otros parámetros opcionales si lo requieres
+    is_user_input_required: true,
+    global_cooldown_setting: {
+      is_enabled: true,
+      global_cooldown_seconds: 15
+    }
   };
 
   const response = await fetch(url, {
@@ -249,6 +252,16 @@ const client = new tmi.Client({
 
 client.connect().catch(console.error);
 
+async function emitirErrorChat(channel) {
+  try {
+    // Enviamos el mensaje al chat. Asegurate de que 'channel' incluya el "#" si es necesario.
+    await client.say(channel, "La estructura del mensaje no es válida. Debe ser 'STREAMER:MENSAJE'.");
+    console.log(`Mensaje de error enviado al chat de ${channel}`);
+  } catch (err) {
+    console.error("Error al enviar mensaje de error al chat:", err);
+  }
+}
+
 // Escuchar mensajes en el chat y detectar la redención de reward TTS
 client.on('message', async (channel, tags, message, self) => {
   if (self) return; // No procesar mensajes del propio bot
@@ -258,9 +271,10 @@ client.on('message', async (channel, tags, message, self) => {
   if (tags && tags['custom-reward-id'] && rewardMapping[channelName] &&
       tags['custom-reward-id'] === rewardMapping[channelName]) {
 
-    // Se asume que el mensaje tiene la estructura "STREAMER:MENSAJE"
+    // Verificar la estructura del mensaje
     if (!message.includes(":")) {
-      console.log("La estructura del mensaje no es válida. Debe ser 'STREAMER:MENSAJE'.");
+      console.log("La estructura del mensaje no es válida. Se enviará mensaje de error al chat.");
+      await emitirErrorChat(channel); // Enviamos el mensaje de error al chat
       return;
     }
 
@@ -276,7 +290,11 @@ client.on('message', async (channel, tags, message, self) => {
 
     try {
       // Seleccionar el voiceId según el streamer
-      const voiceId = voiceMapping[streamerName] || voiceMapping["chabon"];
+      const voiceId = voiceMapping[streamerName];
+      if (!voiceId) {
+        console.error(`No se encontró una voz configurada para ${streamerName}.`);
+        return; // O manejar el caso de otra forma (por ejemplo, enviar un mensaje de error al chat)
+      }      
 
       // Buscar ajustes de la voz (o usar default)
       const voiceSettings = voiceSettingsMapping[streamerName] || defaultSettings;
