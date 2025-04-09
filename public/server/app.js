@@ -27,7 +27,7 @@ const voiceMapping = {
   "melian": "qth8SugvxIOLJ73ZygrE",
   "nanoide": "YEmZfvibUmrQ9Q5qZd5J",
   "mortedor": "LY7WgqA3k94pCgjw0Qxv",
-  "rageylo": "",
+  "athhe": "X3o4ip4LI8174anw68pf",
   "aldimirco": "9ZV0h8ZjupZesKzHUjga",
   "harryalex": "V3qIQaqjgoMuwaOU93Mv",
   "joaconeco": "FE0tCCs2lcjaI5oFcHwf"
@@ -104,6 +104,13 @@ const voiceSettingsMapping = {
     style: 0.41,
     speed: 1.02,
     use_speaker_boost: true
+  },
+  "athhe": {
+    stability: 0.74,
+    similarity_boost: 0.70,
+    style: 0.32,
+    speed: 1.04,
+    use_speaker_boost: true
   }
 };
 
@@ -164,14 +171,12 @@ async function crearRewardTTS(broadcasterId, streamerAccessToken) {
   const url = `https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=${broadcasterId}`;
   const rewardPayload = {
     title: "TTS",
-    prompt: "Para enviar un mensaje con voz personalizada tenés que respetar este formato: '(nombreStreamer: mensaje)'. Por ejemplo: 'baulo: hola123'. DISPONIBLES: 'florchus', 'chabon', 'baulo', 'melian', 'nanoide', 'mortedor', 'aldimirco', 'harryalex', 'joaconeco'",
-    cost: 1000,               // Costo en channel points
+    prompt: "Para enviar un mensaje con voz personalizada tenés que respetar este formato: '(nombreStreamer: mensaje)'. Por ejemplo: 'baulo: hola123'. DISPONIBLES: 'florchus', 'chabon', 'baulo', 'melian', 'nanoide', 'mortedor', 'aldimirco', 'harryalex', 'joaconeco', 'athhe'",
+    cost: 10,               
     is_enabled: true,
     is_user_input_required: true,
-    global_cooldown_setting: {
-      is_enabled: true,
-      global_cooldown_seconds: 15
-    }
+    is_global_cooldown_enabled: true,
+    global_cooldown_seconds: 60
   };
 
   const response = await fetch(url, {
