@@ -172,11 +172,13 @@ async function crearRewardTTS(broadcasterId, streamerAccessToken) {
   const rewardPayload = {
     title: "TTS",
     prompt: "Para enviar un mensaje con voz personalizada tenés que respetar este formato: '(nombreStreamer: mensaje)'. Por ejemplo: 'baulo: hola123'. DISPONIBLES: 'florchus', 'chabon', 'baulo', 'melian', 'nanoide', 'mortedor', 'aldimirco', 'harryalex', 'joaconeco', 'athhe'",
-    cost: 10,               
+    cost: 1000,          
     is_enabled: true,
     is_user_input_required: true,
-    is_global_cooldown_enabled: true,
-    global_cooldown_seconds: 60
+    global_cooldown_setting: {
+      is_enabled: true,
+      global_cooldown_seconds: 15
+    }
   };
 
   const response = await fetch(url, {
